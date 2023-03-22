@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Clinician extends Model
+class Room extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $dates = ['deleted_at'];
-    protected $fillable = ['doctor_name'];
+    protected $fillable = ['room_name'];
 }

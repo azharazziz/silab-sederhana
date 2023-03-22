@@ -15,13 +15,17 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
     </head>
-    <body>
+    <body  class="dark:bg-gray-900">
         @include('layouts.navigation')
         @include('layouts.sidebar')
 
             <!-- Page Content -->
             <main>
+                <div class="p-4 sm:ml-64">
+                    <div class="p-4 rounded-lg mt-14">                 
                 {{ $slot }}
+                    </div>
+                </div>
             </main>
         </div>
         @livewireScripts
