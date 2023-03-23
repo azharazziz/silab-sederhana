@@ -23,12 +23,27 @@
     <div class="relative overflow-x-auto sm:rounded-lg">
         {{-- search --}}
         <div class="flex items-center justify-between pb-4 bg-white dark:bg-gray-900">
-            <label for="table-search" class="sr-only">Search</label>
-            <div class="relative">
-                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+            <div class="flex space-x-2">
+                <div>
+                    <label for="category-search" class="sr-only">Search Category</label>
+                    <div>
+                        <select wire:model="searchCategory" id="countries" class=" p-2 pl-3 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option  value="" selected>Semua Kategori</option>
+                            @foreach ($categories as $item)
+                                <option value="{{ $item->id }}">{{ $item->category_name }}</option>
+                            @endforeach
+                          </select>
+                    </div>
                 </div>
-                <input wire:model="search" type="search" id="table-search" class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cari Parameter">
+                <div>
+                    <label for="table-search" class="sr-only">Search</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+                        </div>
+                        <input wire:model="search" type="search" id="table-search" class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cari Parameter">
+                    </div>
+                </div>
             </div>
             <div>
                 <button wire:click="addNewParameter()" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Tambah Parameter</button>
@@ -70,14 +85,14 @@
                     <label for="result-method" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Opsi Hasil</label>
                     <select wire:model='resultMethod' id="result-method" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option selected>Pilih Opsi Input</option>
-                        <option value="false">Tidak</option>
-                        <option value="true">Ya</option>
+                        <option value="direct">Tidak</option>
+                        <option value="option">Ya</option>
                     </select>
                     @error('resultMethod')
                     <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oops!</span> {{$message}}</p>
                     @enderror
                 </div>
-                @if ($resultMethod == 'true')
+                @if ($resultMethod == 'option')
                 <div class="mb-6">
                     <label for="x" class="block mb-2 text-sm font-medium text-gray-600 dark:text-white">Opsi</label>
                     @foreach($resultInputs as $key => $value)
@@ -164,6 +179,7 @@
                         </td>
                         <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             <ul class="text-left text-gray-900 dark:text-white">
+
                                 @foreach ($item->parameterOption as $optionParameter)
                                     <li class="flex items-center">
                                         <!-- Icon -->
@@ -177,7 +193,7 @@
                             {{ $item->reference_value }}
                         </td>
                         <td class="px-6 py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <a wire:click="showEditForm({{$item->id}})" href="#" class="bg-green-500 text-white rounded p-2">Edit</a>
+                            {{-- <a wire:click="showEditForm({{$item->id}})" href="#" class="bg-green-500 text-white rounded p-2">Edit</a> --}}
                             <a wire:click="destroy({{$item->id}})" href="#" class="bg-red-500 text-white rounded p-2">Hapus</a>
                         </td>
                     </tr>

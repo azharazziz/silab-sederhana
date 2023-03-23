@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 class Index extends Component
 {
     public $search;
+    public $searchCategory;
     public $parameterId;
     Public $parameterName;
     public $addNewParameter;
@@ -62,9 +63,7 @@ class Index extends Component
         $this->validate([
             'newParameterName' => 'required',
             'newCategoryId' => 'required',
-            'newReferenceValue' => 'required',
             'resultMethod' => 'required',
-            'resultOption' => 'required',
             'resultOption.*' => 'required',
         ]);
 
@@ -76,11 +75,13 @@ class Index extends Component
                 'reference_value' => $this->newReferenceValue
             ]);
 
-            foreach ($this->resultOption as $key => $value) {
-                ParameterOption::create([
-                    'parameter_id' => $parameter->id,
-                    'option' => $this->resultOption[$key],
-                ]);
+            if($this->resultMethod == 'option'){
+                foreach ($this->resultOption as $key => $value) {
+                    ParameterOption::create([
+                        'parameter_id' => $parameter->id,
+                        'option' => $this->resultOption[$key],
+                    ]);
+                }
             }
 
             session()->flash('success', 'Data berhasil ditambah');
@@ -97,10 +98,11 @@ class Index extends Component
 
     public function render()
     {
-
         $category = Category::all();
-        if($this->search != null){
+
+        if($this->search != null or $this->searchCategory != null){
             $parameter = Parameter::where('parameter_name', 'like', '%'. $this->search . '%')
+            ->Where('category_id', 'like', '%' . $this->searchCategory . '%')
             ->orderBy('id', 'desc')
             ->paginate(10);
         } else {
