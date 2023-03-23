@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/clinician/', App\Http\Livewire\Clinician\Index::class)->name('clinician');
 
     Route::get('/room', App\Http\Livewire\Room\Index::class)->name('room');
-    
+    Route::get('/parameter', App\Http\Livewire\Parameter\Index::class)->name('parameter');
 });
 
 require __DIR__.'/auth.php';

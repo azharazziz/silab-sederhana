@@ -27,7 +27,7 @@ class Index extends Component
 
     public function store(){
         $this->validate([
-            'newDoctorName'   => 'required',
+            'newDoctorName' => 'required',
         ]);
         Clinician::create([
             'doctor_name' => $this->newDoctorName,
