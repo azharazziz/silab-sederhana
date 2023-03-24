@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('category_id')->references('id')->on('categories');
             $table->string('parameter_name');
             $table->string('unit')->nullable();
-            $table->string('reference_value')->nullable();
+            $table->text('reference_value')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

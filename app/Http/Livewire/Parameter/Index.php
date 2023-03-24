@@ -13,7 +13,6 @@ class Index extends Component
     public $search;
     public $searchCategory;
     public $parameterId;
-    Public $parameterName;
     public $addNewParameter;
     public $newParameterName;
     public $newCategoryId;
@@ -22,11 +21,79 @@ class Index extends Component
     public $resultMethod;
     public $resultInputs = [];
     public $resultOption;
+    public $deletedResultOption;
     public $i = 0;
 
+    public function showEditForm($parameterId){
+        $i = 0;
 
-    public function show(){
-        dd($this->resultOption, $this->resultInputs);
+        $this->parameterId = $parameterId;
+        $parameter = Parameter::find($parameterId);
+        $this->newParameterName = $parameter->parameter_name;
+        $this->newCategoryId = $parameter->category_id;
+        if ($parameter->parameterOption->count() > 0) {
+            $this->resultMethod = 'option';
+            foreach($parameter->parameterOption as $item){
+                $i++;
+                $this->i = $i;
+                array_push($this->resultInputs ,$i);
+                $this->resultOption[$i]['id'] = $item->id;
+                $this->resultOption[$i]['option'] = $item->option;
+            }
+        } else {
+            $this->resultMethod = 'direct';
+        }
+        $this->newUnit = $parameter->unit;
+        $this->newReferenceValue = $parameter->reference_value;
+    }
+
+    public function cancelEdit(){
+        $this->parameterId = null;
+        $this->cancelNewParameter();
+    }
+
+    public function update(){
+        $this->validate([
+            'newParameterName' => 'required',
+            'newCategoryId' => 'required',
+            'resultMethod' => 'required',
+            'resultOption.*' => 'required',
+        ]);
+        DB::transaction(function () {
+            $parameter = Parameter::find($this->parameterId);
+            $parameter->parameter_name = $this->newParameterName;
+            $parameter->unit = $this->newUnit;
+            $parameter->category_id = $this->newCategoryId;
+            $parameter->reference_value = $this->newReferenceValue;
+            $parameter->save();
+
+            if($this->resultMethod == 'option'){
+                foreach ($this->resultOption as $key => $value) {
+                    if (array_key_exists('id', $this->resultOption[$key])) {
+                        $parameterOption = ParameterOption::find($this->resultOption[$key]['id']);
+                        $parameterOption->option = $this->resultOption[$key]['option'];
+                        $parameterOption->save();
+
+                    } else {
+                        ParameterOption::create([
+                            'parameter_id' => $parameter->id,
+                            'option' => $this->resultOption[$key]['option'],
+                        ]);
+                    }
+                }
+            
+                if ($this->deletedResultOption != null) {
+                    foreach($this->deletedResultOption as $key => $value) {
+                        ParameterOption::find( $this->deletedResultOption[$key]['id'] )->delete();
+                    }
+                }
+            }
+            $this->deletedResultOption = null;
+            $this->cancelEdit();
+            $this->cancelNewParameter();
+        });
+
+
     }
 
     public function addNewParameter(){
@@ -50,11 +117,12 @@ class Index extends Component
         $i++;
         $this->i = $i;
         array_push($this->resultInputs ,$i);
-        $this->resultOption[$i] = "";
+        $this->resultOption[$i]['option'] = "";
     }
 
     public function removeOption($i)
     {   
+        $this->deletedResultOption[] = $this->resultOption[$this->resultInputs[$i]];
         unset($this->resultOption[$this->resultInputs[$i]]);
         unset($this->resultInputs[$i]);
     }
@@ -72,14 +140,14 @@ class Index extends Component
                 'category_id' => $this->newCategoryId,
                 'parameter_name' => $this->newParameterName,
                 'unit'  => $this->newUnit,
-                'reference_value' => $this->newReferenceValue
+                'reference_value' => $this->newReferenceValue,
             ]);
 
             if($this->resultMethod == 'option'){
                 foreach ($this->resultOption as $key => $value) {
                     ParameterOption::create([
                         'parameter_id' => $parameter->id,
-                        'option' => $this->resultOption[$key],
+                        'option' => $this->resultOption[$key]['option'],
                     ]);
                 }
             }
