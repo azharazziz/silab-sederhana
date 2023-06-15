@@ -7,9 +7,11 @@ use App\Models\Parameter;
 use App\Models\ParameterOption;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
+    use WithPagination;
     public $search;
     public $searchCategory;
     public $parameterId;
@@ -22,6 +24,9 @@ class Index extends Component
     public $resultInputs = [];
     public $resultOption;
     public $deletedResultOption;
+    public $newPrice;
+    public $newTop;
+    public $newBottom;
     public $i = 0;
 
     public function showEditForm($parameterId){
@@ -45,6 +50,9 @@ class Index extends Component
         }
         $this->newUnit = $parameter->unit;
         $this->newReferenceValue = $parameter->reference_value;
+        $this->newPrice = $parameter->price;
+        $this->newTop = $parameter->top;
+        $this->newBottom = $parameter->bottom;
     }
 
     public function cancelEdit(){
@@ -58,6 +66,9 @@ class Index extends Component
             'newCategoryId' => 'required',
             'resultMethod' => 'required',
             'resultOption.*' => 'required',
+            'newPrice'  => 'required|numeric|min:3',
+            'newTop' => 'nullable|numeric',
+            'newBottom' => 'nullable|numeric',
         ]);
         DB::transaction(function () {
             $parameter = Parameter::find($this->parameterId);
@@ -65,6 +76,9 @@ class Index extends Component
             $parameter->unit = $this->newUnit;
             $parameter->category_id = $this->newCategoryId;
             $parameter->reference_value = $this->newReferenceValue;
+            $parameter->price = $this->newPrice;
+            $parameter->top = $this->newTop;
+            $parameter->bottom = $this->newBottom;
             $parameter->save();
 
             if($this->resultMethod == 'option'){
@@ -81,7 +95,7 @@ class Index extends Component
                         ]);
                     }
                 }
-            
+
                 if ($this->deletedResultOption != null) {
                     foreach($this->deletedResultOption as $key => $value) {
                         ParameterOption::find( $this->deletedResultOption[$key]['id'] )->delete();
@@ -109,6 +123,7 @@ class Index extends Component
         $this->resultMethod = null;
         $this->resultInputs = [];
         $this->resultOption = null;
+        $this->newPrice = null;
         $this->i = 0;
     }
 
@@ -121,7 +136,7 @@ class Index extends Component
     }
 
     public function removeOption($i)
-    {   
+    {
         $this->deletedResultOption[] = $this->resultOption[$this->resultInputs[$i]];
         unset($this->resultOption[$this->resultInputs[$i]]);
         unset($this->resultInputs[$i]);
@@ -133,6 +148,9 @@ class Index extends Component
             'newCategoryId' => 'required',
             'resultMethod' => 'required',
             'resultOption.*' => 'required',
+            'newPrice'  => 'required|numeric|min:2',
+            'newTop' => 'nullable|numeric',
+            'newBottom' => 'nullable|numeric',
         ]);
 
         DB::transaction(function () {
@@ -141,6 +159,9 @@ class Index extends Component
                 'parameter_name' => $this->newParameterName,
                 'unit'  => $this->newUnit,
                 'reference_value' => $this->newReferenceValue,
+                'price' => $this->newPrice,
+                'top' => $this->newTop,
+                'bottom' => $this->newBottom,
             ]);
 
             if($this->resultMethod == 'option'){
@@ -167,14 +188,15 @@ class Index extends Component
     public function render()
     {
         $category = Category::all();
-
         if($this->search != null or $this->searchCategory != null){
             $parameter = Parameter::where('parameter_name', 'like', '%'. $this->search . '%')
-            ->Where('category_id', 'like', '%' . $this->searchCategory . '%')
+            ->when($this->searchCategory != null, function ($query){
+                return $query->Where('category_id', $this->searchCategory);
+            })
             ->orderBy('id', 'desc')
             ->paginate(10);
         } else {
-            $parameter = Parameter::orderBy('parameter_name', 'desc')->paginate(10);
+            $parameter = Parameter::orderBy('id', 'desc')->paginate(10);
 ;
         }
         return view('livewire.parameter.index',[

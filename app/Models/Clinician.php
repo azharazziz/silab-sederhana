@@ -13,3 +13,5 @@ class Clinician extends Model
     protected $dates = ['deleted_at'];
     protected $fillable = ['doctor_name'];
 }
+
+

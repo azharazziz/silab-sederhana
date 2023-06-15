@@ -16,7 +16,10 @@ class Parameter extends Model
         'category_id',
         'parameter_name',
         'unit',
-        'reference_value'
+        'reference_value',
+        'price',
+        'top',
+        'bottom',
     ];
 
     protected $dates = ['deleted_at'];
@@ -29,5 +32,10 @@ class Parameter extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function orderParameter(): HasMany
+    {
+        return $this->hasMany(orderParameter::class);
     }
 }

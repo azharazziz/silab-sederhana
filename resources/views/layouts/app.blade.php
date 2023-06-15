@@ -13,6 +13,11 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        <!-- built -->
+        {{-- <link rel="stylesheet" href="/app-80a3f400.css">
+        <script src="/app-01285746.js"></script> --}}
+
         @livewireStyles
     </head>
     <body  class="dark:bg-gray-900">
@@ -21,8 +26,8 @@
 
             <!-- Page Content -->
             <main>
-                <div class="p-4 sm:ml-64">
-                    <div class="p-4 rounded-lg mt-14">                 
+                <div class="p-4 sm:ml-64 ">
+                    <div class="p-4 rounded-lg mt-14">
                 {{ $slot }}
                     </div>
                 </div>

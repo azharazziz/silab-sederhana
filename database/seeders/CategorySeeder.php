@@ -27,6 +27,9 @@ class CategorySeeder extends Seeder
             'category_name' => 'Fungsi Hati'
         ]);
         Category::create([
+            'category_name' => 'Fungsi Ginjal'
+        ]);
+        Category::create([
             'category_name' => 'Kimia Darah'
         ]);
         Category::create([

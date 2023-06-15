@@ -18,6 +18,9 @@ return new class extends Migration
             $table->string('parameter_name');
             $table->string('unit')->nullable();
             $table->text('reference_value')->nullable();
+            $table->decimal('bottom')->nullable();
+            $table->decimal('top')->nullable();
+            $table->integer('price');
             $table->timestamps();
             $table->softDeletes();
         });

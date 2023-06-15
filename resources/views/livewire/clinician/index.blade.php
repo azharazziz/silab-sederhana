@@ -18,7 +18,7 @@
         </div>
     </div>
     @endif
-    
+
     {{-- table --}}
     <div class="relative overflow-x-auto sm:rounded-lg">
         {{-- search  --}}
@@ -93,9 +93,9 @@
 
             </tbody>
         </table>
-    </div> 
+    </div>
     {{-- paginate --}}
     <div class="pt-3">
-        {{ $clinician->links() }} 
+        {{ $clinician->links() }}
     </div>
 </div>
