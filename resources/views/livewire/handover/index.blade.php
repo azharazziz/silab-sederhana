@@ -76,11 +76,15 @@
                         <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             @if ($item->delivery_officer == null)
                             <select  wire:model='officer.{{ $item->id }}.value' class="bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option>Pilih</option>
+                                <option value="">Pilih</option>
                                 @foreach ($analysts as $analyst)
                                     <option value="{{ $analyst->name }}">{{ $analyst->name }}</option>
                                 @endforeach
                             </select>
+                            @error('officer')
+                                <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oops!</span>
+                                    {{ $message }}</p>
+                            @enderror
                             @else
                                 {{ $item->delivery_officer }}
                             @endif
@@ -90,21 +94,25 @@
                             @if ($item->receiver == null)
                                 <input  wire:model='receiver.{{ $item->id }}.value' type="text"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-
+                                @error('receiver')
+                                    <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oops!</span>
+                                    {{ $message }}</p>
+                                @enderror
                             @else
                             {{ $item->receiver }}
                             @endif
 
                         </td>
                         <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-
                             @if ($item->delivery_officer == null && $item->receiver == null)
-                            <a wire:click='handover({{ $item->id }})' type="button" class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900 cursor-pointer">Serahkan</a>
-
+                                @if (@$receiver[$item->id]['value']!="" && @$officer[$item->id]['value']!="")
+                                    <a wire:click="handover('{{ $item->id }}')" type="button" class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900 cursor-pointer">Serahkan</a>
+                                @else
+                                <button type="button" disabled class="text-white bg-slate-700 hover:bg-slate-800 focus:outline-none focus:ring-4 focus:ring-slate-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-slate-600 dark:hover:bg-slate-700 dark:focus:ring-slate-900 cursor-pointer">Serahkan</button>
+                                @endif
                             @else
-                            <a wire:click='cancelHandover({{ $item->id }})' type="button" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 cursor-pointer">Batalkan</a>
+                            <a wire:click="cancelHandover('{{ $item->id }}')" type="button" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 cursor-pointer">Batalkan</a>
                             @endif
-
                         </td>
                     </tr>
                 @endforeach

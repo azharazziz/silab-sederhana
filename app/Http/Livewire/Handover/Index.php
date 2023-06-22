@@ -21,6 +21,8 @@ class Index extends Component
         $order->save();
         $this->officer = null;
         $this->receiver = null;
+        session()->flash('success', 'Data berhasil disimpan');
+
     }
 
     public function cancelHandover($idOrder){
@@ -28,6 +30,8 @@ class Index extends Component
         $order->delivery_officer = null;
         $order->receiver = null;
         $order->save();
+        session()->flash('success', 'Data berhasil disimpan');
+
 
     }
     public function render()

@@ -34,6 +34,8 @@ return new class extends Migration
             $table->string('critical_value')->nullable();
             $table->string('receiver')->nullable();
             $table->string('delivery_officer')->nullable();
+            $table->string('report_receiver')->nullable();
+            $table->string('reporter')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

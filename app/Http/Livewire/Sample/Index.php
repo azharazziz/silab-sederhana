@@ -52,6 +52,8 @@ class Index extends Component
         $order->verify_date = now();
         $order->save();
         $this->cancelEdit();
+        session()->flash('success', 'Data berhasil disimpan');
+
     }
 
     public function reject($orderId){
@@ -60,6 +62,8 @@ class Index extends Component
         $order->note = $this->noteOrder;
         $order->save();
         $this->cancelEdit();
+        session()->flash('success', 'Data berhasil disimpan');
+
     }
 
     public function cancelEdit(){
@@ -75,7 +79,6 @@ class Index extends Component
                 ['type', $sample],
             ])->exists()
             ){
-                #nothingToDo
             }else{
                 Sample::create([
                     'order_id' => $this->orderId,
@@ -87,6 +90,7 @@ class Index extends Component
 
     public function deleteStorage($sampleId){
         Sample::find($sampleId)->delete();
+        unset($this->sample[$sampleId]);
     }
 
     public function render()

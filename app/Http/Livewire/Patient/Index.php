@@ -71,8 +71,6 @@ class Index extends Component
             'newDistrict'   => 'required',
             'newVillage'   => 'required',
             'newAddress'   => 'required',
-            'newPhone'   => 'required',
-            'newEmail'   => 'required',
         ]);
 
         DB::transaction(function () {

@@ -15,19 +15,27 @@ class Index extends Component
     public $receiver;
 
     public function handover($idOrder){
+        $this->validate([
+            'officer' => 'required',
+            'receiver' => 'required',
+        ]);
         $order = Order::find($idOrder);
-        $order->delivery_officer = $this->officer[$idOrder]['value'];
-        $order->receiver = $this->receiver[$idOrder]['value'];
+        $order->reporter = $this->officer[$idOrder]['value'];
+        $order->report_receiver = $this->receiver[$idOrder]['value'];
         $order->save();
         $this->officer = null;
         $this->receiver = null;
+        session()->flash('success', 'Data berhasil disimpan');
+
     }
 
     public function cancelHandover($idOrder){
         $order = Order::find($idOrder);
-        $order->delivery_officer = null;
-        $order->receiver = null;
+        $order->report_receiver = null;
+        $order->reporter = null;
         $order->save();
+        session()->flash('success', 'Data berhasil disimpan');
+
 
     }
 

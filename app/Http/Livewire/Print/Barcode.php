@@ -2,12 +2,12 @@
 
 namespace App\Http\Livewire\Print;
 
+use App\Models\Category;
 use App\Models\Order;
 use Livewire\Component;
 
-class Index extends Component
+class Barcode extends Component
 {
-
     public $orderId;
 
     public function mount($orderId)
@@ -22,8 +22,10 @@ class Index extends Component
     public function render()
     {
         $order = Order::find($this->orderId);
-        return view('livewire.print.index',[
+        $category = Category::all();
+        return view('livewire.print.barcode',[
             'order' => $order,
+            'categories' => $category,
         ])
         ->layout('layouts.print');
     }

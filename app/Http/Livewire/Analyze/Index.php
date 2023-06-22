@@ -15,14 +15,11 @@ class Index extends Component
     public $orderId;
     public $result;
 
-    // public function dd(){
-    //     dd($this->result);
-    // }
-
     public function release($orderId){
         $order = Order::find($orderId);
         $order->release = true;
         $order->save();
+        session()->flash('success', 'Data berhasil disimpan');
     }
 
     public function inputResult($orderId){
@@ -44,6 +41,7 @@ class Index extends Component
             $orderParameter->result = $value['value'];
             $orderParameter->save();
         }
+        session()->flash('success', 'Data berhasil disimpan');
         $this->cancelInput();
     }
 

@@ -21,6 +21,8 @@ class Index extends Component
         $order->paid_status = 'Lunas';
         $order->save();
         $this->close();
+        session()->flash('success', 'Data berhasil disimpan');
+
     }
 
     public function insurance(){
@@ -28,6 +30,8 @@ class Index extends Component
         $order->paid_status = 'Jaminan';
         $order->save();
         $this->close();
+        session()->flash('success', 'Data berhasil disimpan');
+
     }
 
     public function close(){

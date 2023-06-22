@@ -78,7 +78,7 @@
                                         <span class="text-sm font-bold dark:text-white">{{ $item->id }}</span>
                                     </div>
                                 </div>
-                                <div class="mb-6 flex uppercase text-center border-b dark:border-gray-700">
+                                <div class="mb-6 flex uppercase border-b dark:border-gray-700">
                                     <div class="w-1/4">
                                         <p class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kategori</p>
                                     </div>
@@ -112,9 +112,9 @@
                                 </div>
                                 <div class="mb-6 flex">
                                     @if ($item->validate == 1)
-                                        <button wire:click="recheck({{ $item->id }})" type="button" class="text-white bg-green-400 hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:focus:ring-green-900">Recheck</button>
+                                        <button wire:click="recheck('{{ $item->id }}')" type="button" class="text-white bg-green-400 hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:focus:ring-green-900">Recheck</button>
                                     @else
-                                        <button wire:click="validating({{ $item->id }})" type="button" class="text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-yellow-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:focus:ring-yellow-900">Validasi</button>
+                                        <button wire:click="validating('{{ $item->id }}')" type="button" class="text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-yellow-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:focus:ring-yellow-900">Validasi</button>
                                     @endif
                                     <button wire:click="cancelDetail" type="button" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Batal</button>
                                 </div>
@@ -153,11 +153,11 @@
                         </td>
 
                         <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <button wire:click="detail({{ $item->id }})" type="button" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">View</button>
+                            <button wire:click="detail('{{ $item->id }}')" type="button" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">View</button>
                             @if ($item->validate == 1)
-                                <button wire:click="recheck({{ $item->id }})" type="button" class="text-white bg-green-400 hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:focus:ring-green-900">Recheck</button>
+                                <button wire:click="recheck('{{ $item->id }}')" type="button" class="text-white bg-green-400 hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:focus:ring-green-900">Recheck</button>
                             @else
-                                <button wire:click="validating({{ $item->id }})" type="button" class="text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-yellow-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:focus:ring-yellow-900">Validasi</button>
+                                <button wire:click="validating('{{ $item->id }}')" type="button" class="text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-yellow-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:focus:ring-yellow-900">Validasi</button>
                             @endif
 
                         </td>

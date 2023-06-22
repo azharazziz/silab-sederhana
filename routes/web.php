@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
         //laboratorium
         route::get('/patient/register', App\Http\Livewire\Patient\Index::class)->name('patient.register');
         route::get('/sample', \App\Http\Livewire\Sample\Index::class)->name('sample');
+        route::get('/barcode/{orderId}', \App\Http\Livewire\Print\Barcode::class)->name('barcode');
         route::get('/analyze', \App\Http\Livewire\Analyze\Index::class)->name('analyze');
         route::get('/validate', \App\Http\Livewire\Validate\Index::class)->name('validate');
         route::get('/checkout', \App\Http\Livewire\Checkout\Index::class)->name('checkout');

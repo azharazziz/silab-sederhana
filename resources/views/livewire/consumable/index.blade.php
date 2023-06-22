@@ -54,6 +54,9 @@
                         Catatan
                     </th>
                     <th scope="col" class="px-6 py-3">
+                        Perubahan Terakhir
+                    </th>
+                    <th scope="col" class="px-6 py-3">
                         Aksi
                     </th>
                 </tr>
@@ -112,8 +115,12 @@
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{ $item->notes }}
                         </td>
+                        <td scope="row"
+                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{ $item->updated_at }}
+                        </td>
                         <td>
-                            <a wire:click="showEditForm({{$item->id}})" href="#" class="bg-green-500 text-white rounded p-2">Edit</a>
+                            <a wire:click="showEditForm('{{$item->id}}')" href="#" class="bg-green-500 text-white rounded p-2">Edit</a>
                         </td>
                     </tr>
                     @endif

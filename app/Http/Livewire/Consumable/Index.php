@@ -31,6 +31,7 @@ class Index extends Component
         $consumable->notes = $this->newNotes;
         $consumable->save();
         $this->cancelEdit();
+        session()->flash('success', 'Data berhasil disimpan');
 
     }
 

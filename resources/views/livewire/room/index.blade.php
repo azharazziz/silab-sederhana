@@ -86,8 +86,8 @@
                             {{ $item->room_name }}
                         </td>
                         <td class="px-6 py-4 text-center">
-                            <a wire:click="showEditForm({{$item->id}})" href="#" class="bg-green-500 text-white rounded p-2">Edit</a>
-                            <a wire:click="destroy({{$item->id}})" href="#" class="bg-red-500 text-white rounded p-2">Hapus</a>
+                            <a wire:click="showEditForm('{{$item->id}}')" href="#" class="bg-green-500 text-white rounded p-2">Edit</a>
+                            <a wire:click="destroy('{{$item->id}}')" href="#" class="bg-red-500 text-white rounded p-2">Hapus</a>
                         </td>
                     </tr>
                     @endif
@@ -95,9 +95,9 @@
 
             </tbody>
         </table>
-    </div> 
+    </div>
     {{-- paginate --}}
     <div class="pt-3">
-        {{ $room->links() }} 
+        {{ $room->links() }}
     </div>
 </div>

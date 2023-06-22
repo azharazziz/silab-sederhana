@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('district');
             $table->string('village');
             $table->string('address');
-            $table->string('phone');
-            $table->string('email');
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

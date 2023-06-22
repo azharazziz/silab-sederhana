@@ -536,7 +536,7 @@
                                 class="px-6 py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 <a wire:click="reorder('{{ $item->id }}')" href="#"
                                     class="bg-green-500 text-white rounded p-2">Pemeriksaan Baru</a>
-                                <a wire:click="destroy({{ $item->id }})" href="#"
+                                <a wire:click="destroy('{{ $item->id }}')" href="#"
                                     class="bg-red-500 text-white rounded p-2">Hapus</a>
                             </td>
                         </tr>

@@ -1,12 +1,5 @@
 <div>
     <table>
-        {{-- <thead>
-            <tr>
-                <td>
-                    <div class="header-space">&nbsp;</div>
-                </td>
-            </tr>
-        </thead> --}}
         <tbody>
             <tr>
                 <td>
@@ -31,13 +24,13 @@
                                 <td><b>Nama Pasien</b></td>
                                 <td>: <b>{{ $order->patient->name }}</b></td>
                                 <td>Tanggal Bahan Diterima</td>
-                                <td>: {{ $order->examination_date }}</td>
+                                <td>: {{ $order->verify_date }}</td>
                             </tr>
                             <tr>
                                 <td>Tanggal Lahir</td>
                                 <td>: {{ $order->patient->datebirth }}</td>
                                 <td>Tanggal Hasil Selesai</td>
-                                <td>: {{ date_format($order->updated_at, 'Y-m-d') }}</td>
+                                <td>: {{$order->updated_at }}</td>
                             </tr>
                             <tr>
                                 <td>Alamat</td>
@@ -81,7 +74,6 @@
                                     <td>{{ $item->result }}</td>
                                     <td>{{ $item->parameter->unit }}</td>
                                     <td>{!! nl2br($item->parameter->reference_value) !!}</td>
-                                    <td></td>
                                 </tr>
                             @endforeach
                         </table>

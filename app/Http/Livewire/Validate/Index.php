@@ -20,6 +20,8 @@ class Index extends Component
         $order->validate = true;
         $order->save();
         $this->cancelDetail();
+        session()->flash('success', 'Data berhasil disimpan');
+
     }
 
     public function recheck($orderId){
@@ -27,6 +29,8 @@ class Index extends Component
         $order->validate = false;
         $order->save();
         $this->cancelDetail();
+        session()->flash('success', 'Data berhasil disimpan');
+
     }
 
     public function cancelDetail(){

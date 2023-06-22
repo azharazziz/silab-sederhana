@@ -65,7 +65,9 @@
                         </td>
                         <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             <a href="/print/{{ $item->id }}" target="_blank" popup="yes" type="button" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 cursor-pointer">Print</a>
-
+                            @if ($item->patient->phone != null)
+                            <a href="https://wa.me/62{{ $item->patient->phone }}?text=Salam%2C%20%0Ahasil%20pemeriksaan%20Anda%20telah%20selesai.%20Hasil%20pemeriksaan%20dapat%20dilihat%20pada%20tautan%20berikut%20{{  url('') }}%2Fprint%2F{{ $item->id }}.%0ATerima%20Kasih.%0A" target="_blank" popup="yes" type="button" class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900 cursor-pointer">Kirim WA</a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

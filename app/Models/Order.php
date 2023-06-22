@@ -33,7 +33,9 @@ class Order extends Model
         'paid_status',
         'critical_value',
         'receiver',
-        'delivery_officer'
+        'delivery_officer',
+        'receiver_report',
+        'reporter',
     ];
 
     public function patient(): BelongsTo
