@@ -30,7 +30,7 @@ class Index extends Component
             'newAnalystName' => 'required',
         ]);
         Analyst::create([
-            'analyst_name' => $this->newAnalystName,
+            'name' => $this->newAnalystName,
         ]);
         session()->flash('success', 'Data berhasil disimpan');
         $this->addNewAnalyst = false;

@@ -29,7 +29,11 @@ class Parameter extends Component
             'newConsumableName' => 'required',
         ]);
         Consumable::create([
-            'consumable_name' => $this->newConsumableName,
+            'name' => $this->newConsumableName,
+            'in' => 0,
+            'out' => 0,
+            'expired' => 0,
+            'notes' => "",
         ]);
         session()->flash('success', 'Data berhasil disimpan');
         $this->addNewConsumable = false;
