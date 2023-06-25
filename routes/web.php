@@ -31,6 +31,8 @@ Route::middleware('auth')->group(function () {
     Route::group(['middleware' => ['role:super-admin']], function () {
         //super-admin
         Route::get('/clinician', App\Http\Livewire\Clinician\Index::class)->name('clinician');
+        Route::get('/analyst', \App\Http\Livewire\Analyst\Index::class)->name('analyst');
+        Route::get('/consumable/parameter', \App\Http\Livewire\Consumable\Parameter::class)->name('consumable.parameter');
         Route::get('/room', App\Http\Livewire\Room\Index::class)->name('room');
         Route::get('/parameter/list', App\Http\Livewire\Parameter\Index::class)->name('parameter');
         Route::get('parameter/category',  App\Http\Livewire\Parameter\Category::class)->name('category');

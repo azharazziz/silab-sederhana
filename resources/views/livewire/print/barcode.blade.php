@@ -26,15 +26,27 @@
                                 <td style="width: 25mm; text-align:right;"><small>{{ $order->id }}</small></td>
                             </tr>
                             <tr>
-                                <td colspan="2">
-                                    <small>{{ $order->patient->name }}/{{ $order->patient->datebirth }}
+                                <td style="white-space: nowrap; overflow: hidden; text-overflow: clip;">
+                                    <small>
+                                        {{ $order->patient->name }}/{{ $order->patient->datebirth }}
+                                    </small>
+                                </td>
+                                <td style="text-align:right;">
+                                    <small>
                                         <b>({{ $order->patient->id }})</b>
                                     </small>
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2">
+                                <td colspan="2" style="text-align:center;">
                                     <img src="data:image/png; base64, {!! DNS1D::getBarcodePNG($order->id, 'C128') !!}" alt="">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="font-size: 12px">
+                                    <small>
+                                        {{ $order->room->room_name }}
+                                    </small>
                                 </td>
                             </tr>
                             <tr>

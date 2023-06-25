@@ -60,11 +60,11 @@ class Order extends Model
 
     public function clinician(): BelongsTo
     {
-        return $this->belongsTo(Clinician::class);
+        return $this->belongsTo(Clinician::class)->withTrashed();
     }
 
     public function analyst(): BelongsTo
     {
-        return $this->belongsTo(Analyst::class);
+        return $this->belongsTo(Analyst::class)->withTrashed();
     }
 }
